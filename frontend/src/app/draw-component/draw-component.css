@@ -1,0 +1,82 @@
+canvas {
+  background-color: white;
+  cursor: crosshair;
+
+}
+
+/* model selector styling */
+.model-selector{gap:8px}
+.model-option{
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 999px;
+  transition: all 140ms ease;
+  user-select:none;
+}
+.model-option.active{
+  background: linear-gradient(90deg,#60a5fa,#7c3aed);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(99,102,241,0.18);
+}
+
+.canvas-box h5{font-weight:600}
+
+/* pleine hauteur centrée */
+.page-center {
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Wrapper qui contient les deux boîtes */
+.boxes-wrapper {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* style commun aux boîtes */
+.box {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  flex: 1 1 45%;
+  min-width: 280px;
+  min-height: 360px;
+}
+
+/* special pour canvas box */
+.canvas-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* adversarial box centré */
+.adversarial-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* pour petits écrans -> empiler */
+@media (max-width: 991px) {
+  .boxes-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .box {
+    min-height: 280px;
+  }
+}
+
+/* petit ajustement pour le canvas */
+canvas {
+  background-color: white;
+  cursor: crosshair;
+  touch-action: none; /* évite certains scrolling sur mobile */
+}

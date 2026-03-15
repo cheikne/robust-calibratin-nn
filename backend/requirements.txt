@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+sqlite-utils
+python-multipart
+torch
+numpy
+mysql-connector-python
+torchvision

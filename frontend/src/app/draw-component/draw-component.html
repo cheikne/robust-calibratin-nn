@@ -1,0 +1,93 @@
+<p>draw-component works!</p>
+<div class="mt-4">
+<div class="model-selector d-flex justify-content-center" role="radiogroup" aria-label="Select model">
+        <label *ngFor="let m of modelOptions" class="model-option btn btn-sm" [class.active]="selectedModel === m.value">
+          <input type="radio" name="model"  [value]="m.value" (change)="selectModel(m.value)" [checked]="selectedModel === m.value" hidden />
+          {{ m.label }}
+        </label>
+      </div>
+<div class="page-center d-flex justify-content-center align-items-center">
+    
+  <div class="boxes-wrapper d-flex flex-lg-row flex-column gap-4">
+
+    
+    <!-- BOX 1: Canvas + controls -->
+    <div class="box canvas-box p-4">
+      <h5 class="text-center mb-3">Draw & Predict</h5>
+
+ 
+
+      <div class="text-center">
+        <canvas
+          #canvas
+          width="280"
+          height="280"
+          class="border border-dark rounded"
+          (mousedown)="startDrawing($event)"
+          (mouseup)="stopDrawing()"
+          (mouseleave)="stopDrawing()"
+          (mousemove)="draw($event)"
+        ></canvas>
+
+        <div class="mt-3 d-flex justify-content-center gap-2">
+          <button class="btn btn-sm btn-danger" (click)="clear()">Clear</button>
+          <button class="btn btn-sm btn-success" (click)="predict()">Predict</button>
+          <button class="btn btn-sm btn-secondary" (click)="display()">Display</button>
+          <button class="btn btn-sm btn-warning" (click)="applyAttack('APPLY_ATTACK')">Apply Attack</button>
+        </div>
+
+        <div class="mt-3" *ngIf="predictionResult !== ''">
+          <h5>Prediction Result: <i>{{ predictionResult }}</i></h5>
+          <div *ngIf="isCorrectBtn">
+            Correct ?:
+            <button type="button" class="btn btn-primary btn-sm" (click)="updateLabelImage('YES')">YES</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="updateLabelImage('NO')">NO</button>
+          </div>
+        </div>
+
+        <div class="mt-3" *ngIf="displayedImage">
+          <h6>Drawn Image:</h6>
+          <img [src]="displayedImage" alt="Drawn digit" class="border rounded" width="140">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="box adversarial-box p-4 d-flex flex-column align-items-center justify-content-center">
+      <h5 class="mb-3 text-center">Adversarial</h5>
+
+      <div *ngIf="!adversarialImage" class="text-muted text-center">
+        Adversarial image will appear here
+      </div>
+
+
+      <div *ngIf="adversarialImage" class="text-center">
+
+        <img [src]="adversarialImage" alt="Adversarial digit" class="mx-auto d-block" style="border: 1px solid;">
+      </div>
+        <div class="mt-3 d-flex justify-content-center gap-2" *ngIf="adversarialImage != null">
+          <div *ngIf="isApplyingAttack" class="d-flex align-items-center justify-content-center gap-1">
+            <div class="spinner-grow text-muted"></div>
+            <div class="spinner-grow text-primary"></div>
+            <div class="spinner-grow text-success"></div>
+            <div class="spinner-grow text-info"></div>
+            <div class="spinner-grow text-warning"></div>
+            <div class="spinner-grow text-danger"></div>
+            <div class="spinner-grow text-secondary"></div>
+            <div class="spinner-grow text-dark"></div>
+            <div class="spinner-grow text-light"></div>
+          </div>
+          <button class="btn btn-sm btn-danger" *ngIf="!isApplyingAttack" (click)="applyAttack('PGD_ATTACK')">Apply Attack PGD</button>
+      
+          <button class="btn btn-sm btn-warning"  (click)="applyAttack('FGSM_ATTACK')">FSGM</button>
+          <button *ngIf="isAttackApplied" class="btn btn-sm btn-success" (click)="applyAttack('PREDICT')">Predict Now</button>
+        </div>
+                <div class="mt-3" *ngIf="predictionResult !== null">
+          <h5>Prediction Result: <i>{{ predictionResultAttack }}</i></h5>
+        </div>
+    </div>
+    
+
+  </div>
+</div>
+</div>
