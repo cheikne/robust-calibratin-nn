@@ -1,8 +1,52 @@
 canvas {
-  background-color: white;
+  background-color: #000;
   cursor: crosshair;
 
 }
+/* Styles pour la sélection de modèle et le choix de bruit */
+.model-noise-select {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.model-noise-select .model-choice,
+.model-noise-select .noise-choice {
+  display: flex;
+  gap: 1rem; /* espace plus large entre les boutons */
+  align-items: center;
+  justify-content: center;
+}
+
+.model-noise-select button {
+  min-width: 120px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: transparent;
+  color: #222;
+  font-weight: 600;
+  transition: transform 120ms ease, box-shadow 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.model-noise-select button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(16,24,40,0.08);
+}
+
+.model-noise-select button.active {
+  background: linear-gradient(90deg,#60a5fa,#7c3aed);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 10px 30px rgba(99,102,241,0.16);
+}
+
+/* petites améliorations responsive */
+@media (max-width: 480px) {
+  .model-noise-select .model-choice,
+  .model-noise-select .noise-choice { gap: 0.5rem; flex-wrap: wrap; }
+  .model-noise-select button { min-width: 100px; padding: 0.4rem 0.7rem; }
+}
+
 
 /* model selector styling */
 .model-selector{gap:8px}
@@ -76,7 +120,7 @@ canvas {
 
 /* petit ajustement pour le canvas */
 canvas {
-  background-color: white;
+  background-color: #000;
   cursor: crosshair;
   touch-action: none; /* évite certains scrolling sur mobile */
 }
