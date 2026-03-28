@@ -1,1 +1,63 @@
-<p>dashboard-component works!</p>
+<div class="dashboard-root">
+	<div class="controls">
+		<button class="model-btn" (click)="selectModelType('cnn')">CNN model</button>
+		<button class="model-btn" (click)="selectModelType('mlp')">MLP model</button>
+		<div class="loading" *ngIf="isLoading">Chargement…</div>
+	</div>
+
+	<div *ngIf="selectedModel" class="model-panel">
+		<h2>{{ selectedModel.name }} <small>({{ selectedModel.model_type }})</small></h2>
+		<p class="desc">{{ selectedModel.description || '— No description —' }}</p>
+		<div class="meta">
+			<div><strong>ID:</strong> {{ selectedModel.id }}</div>
+			<div><strong>Créé le:</strong> {{ selectedModel.created_at }}</div>
+		</div>
+
+		<h3>Training runs</h3>
+		<div *ngIf="trainingRuns.length === 0">Aucun training run trouvé pour ce modèle.</div>
+		<div *ngFor="let run of trainingRuns" class="run-card">
+			<div class="run-header">
+				<div><strong>Run #{{ run.id }}</strong></div>
+				<div class="run-meta">epochs: {{ run.epochs }} · batch: {{ run.batch_size }} · lr: {{ run.learning_rate }} · opt: {{ run.optimizer }}</div>
+			</div>
+			<div class="run-body">
+				<div class="metrics">
+					<div><strong>Train acc:</strong> {{ run.train_accuracy ?? '—' }}</div>
+					<div><strong>Val acc:</strong> {{ run.val_accuracy ?? '—' }}</div>
+					<div><strong>Model path:</strong> {{ run.model_path || '—' }}</div>
+				</div>
+
+				<div class="evals">
+					<h4>Evaluation results</h4>
+					<div *ngIf="getResultsForRun(run.id).length === 0">Aucun résultat d'évaluation pour ce run.</div>
+					<table *ngIf="getResultsForRun(run.id).length > 0" class="eval-table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Perturbation</th>
+								<th>Niveau</th>
+								<th>Accuracy</th>
+								<th>ECE</th>
+								<th>Avg conf.</th>
+								<th>Created</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let e of getResultsForRun(run.id)">
+								<td>{{ e.id }}</td>
+								<td>{{ e.perturbation_type || '—' }}</td>
+								<td>{{ e.perturbation_level }}</td>
+								<td>{{ e.accuracy }}</td>
+								<td>{{ e.ece }}</td>
+								<td>{{ e.avg_confidence }}</td>
+								<td>{{ e.created_at }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="!selectedModel && !isLoading" class="empty">Sélectionnez un modèle en haut pour afficher les paramètres et résultats.</div>
+</div>

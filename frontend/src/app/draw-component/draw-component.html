@@ -1,4 +1,4 @@
-<p>draw-component works!</p>
+
 <div class="mt-4">
   <div class="model-selector d-flex justify-content-center" role="radiogroup" aria-label="Select model">
         <!-- <label *ngFor="let m of modelOptions" class="model-option btn btn-sm" [class.active]="selectedModel === m.value">
@@ -12,15 +12,23 @@
   <div class="boxes-wrapper d-flex flex-lg-row flex-column gap-4 mt-5">
 
     <div class="model-noise-select w-100 mb-2 d-flex flex-column align-items-center">
-      <div class="model-choice mb-2 d-flex justify-content-center gap-2" role="radiogroup" aria-label="Choisir modèle">
-        <button type="button" class="btn btn-outline-primary btn-sm" data-model="CNN" aria-pressed="false">CNN</button>
-        <button type="button" class="btn btn-outline-secondary btn-sm" data-model="MLP" aria-pressed="false">MLP</button>
-      </div>
+        <div class="model-choice mb-2 d-flex justify-content-center gap-2" role="radiogroup" aria-label="Choisir modèle">
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectModelType('CNN')" [class.active]="selectedModelType === 'CNN'">CNN</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" (click)="selectModelType('MLP')" [class.active]="selectedModelType === 'MLP'">MLP</button>
+        </div>
 
       <div class="noise-choice d-flex justify-content-center gap-2" role="group" aria-label="Choisir type de bruit">
-        <button type="button" class="btn btn-sm btn-outline-dark" data-noise="gaussian">Gaussian noise</button>
-        <button type="button" class="btn btn-sm btn-outline-dark" data-noise="rotate">Image rotation</button>
-        <button type="button" class="btn btn-sm btn-outline-dark" data-noise="blur">Blur</button>
+        <button type="button" class="btn btn-sm btn-outline-dark" (click)="selectPerturbation('gaussian')" [class.active]="selectedPerturbation === 'gaussian'">Gaussian noise</button>
+        <button type="button" class="btn btn-sm btn-outline-dark" (click)="selectPerturbation('rotate')" [class.active]="selectedPerturbation === 'rotate'">Image rotation</button>
+        <button type="button" class="btn btn-sm btn-outline-dark" (click)="selectPerturbation('blur')" [class.active]="selectedPerturbation === 'blur'">Blur</button>
+      </div>
+      <div class="perturbation-control mt-2 d-flex flex-column align-items-center">
+        <label class="mb-1">Perturbation level: <strong>{{ perturbationLevel }}</strong></label>
+        <input type="range" min="0" max="1" step="0.01" (input)="onPerturbationLevelChange($event)" [value]="perturbationLevel" />
+      </div>
+      <div class="stroke-control mt-2 d-flex flex-column align-items-center">
+        <label class="mb-1">Stroke width: <strong>{{ strokeWidth }}</strong></label>
+        <input type="range" min="1" max="20" step="1" (input)="onStrokeWidthChange($event)" [value]="strokeWidth" />
       </div>
     </div>
 </div>
@@ -51,10 +59,10 @@
         ></canvas>
 
         <div class="mt-3 d-flex justify-content-center gap-2">
-          <button class="btn btn-sm btn-danger" >Clear</button>
-          <button class="btn btn-sm btn-success" >Predict</button>
-          <button class="btn btn-sm btn-secondary" >Display</button>
-          <button class="btn btn-sm btn-warning" >Apply Attack</button>
+          <button class="btn btn-sm btn-danger" (click)="clear()">Clear</button>
+          <button class="btn btn-sm btn-success" (click)="predict()">Predict</button>
+          <button class="btn btn-sm btn-secondary" (click)="displayImage()">Display</button>
+          <button class="btn btn-sm btn-warning" (click)="applyAttack()">Apply Attack</button>
         </div>
 
 

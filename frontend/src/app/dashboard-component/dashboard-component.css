@@ -1,0 +1,35 @@
+.dashboard-root {
+	padding: 16px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	color: #222;
+}
+
+.controls {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	margin-bottom: 16px;
+}
+
+.model-btn {
+	padding: 8px 14px;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	background: #fff;
+	cursor: pointer;
+}
+
+.model-btn:hover { background: #f6f6f6; }
+.loading { margin-left: 12px; color: #666 }
+
+.model-panel { border-top: 1px solid #eee; padding-top: 12px; }
+.desc { color: #444; margin: 8px 0 12px 0 }
+.meta { display:flex; gap: 20px; color:#666; font-size: 13px; margin-bottom: 12px }
+
+.run-card { border: 1px solid #ececec; padding: 10px; border-radius: 6px; margin-bottom: 12px; background: #fff }
+.run-header { display:flex; justify-content:space-between; align-items:center }
+.run-meta { color:#666; font-size:13px }
+.metrics { display:flex; gap:16px; margin-top:8px; color:#333 }
+.eval-table { width:100%; border-collapse: collapse; margin-top:8px }
+.eval-table th, .eval-table td { border:1px solid #eee; padding:6px 8px; text-align:left; font-size:13px }
+.empty { color:#666; margin-top:12px }

@@ -40,6 +40,22 @@ canvas {
   box-shadow: 0 10px 30px rgba(99,102,241,0.16);
 }
 
+.perturbation-control input[type="range"] {
+  width: 220px;
+}
+
+.prediction-result {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.06);
+  display: inline-block;
+}
+
+.stroke-control input[type="range"] {
+  width: 220px;
+}
+
 /* petites améliorations responsive */
 @media (max-width: 480px) {
   .model-noise-select .model-choice,
